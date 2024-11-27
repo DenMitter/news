@@ -6,7 +6,7 @@
    Спочатку клонувати репозиторій на ваш локальний комп'ютер:
 
    ```bash
-   git clone [https://your-repository-url.git](https://github.com/DenMitter/news.git)
+   git clone https://github.com/DenMitter/news.git
    cd news
 
 2. **Налаштуйте Docker**
