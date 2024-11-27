@@ -1,0 +1,42 @@
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - '8876:80'
+    container_name: news_nginx
+  app:
+    image: php:8.1-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    container_name: news_app
+  mysql:
+    image: mysql:8.0
+    container_name: news_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: h6J2vT37Ti
+      MYSQL_DATABASE: news
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: news_db
+      MYSQL_ROOT_PASSWORD: h6J2vT37Ti
+    ports:
+      - '8080:80'
+    depends_on:
+      - mysql
+
+volumes:
+  db_data:
